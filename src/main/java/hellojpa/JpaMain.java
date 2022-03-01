@@ -17,21 +17,14 @@ public class JpaMain {
 
         //code 작성
         try{
-            //비영속
-//            Member member = new Member();
-//            member.setId(101L);
-//            member.setName("HelloJPA");
-//
-//            //영속
-//            System.out.println("=== BEFORE ===");
-//            em.persist(member);
-//            System.out.println("=== AFTER ===");
+            //영속
+            Member member = new Member(150L, "A");
+            member.setName("ZZZZZ");
 
-            Member findMember1 = em.find(Member.class, 101L); //영속성 컨텍스트에 담김
-            Member findMember2 = em.find(Member.class, 101L);
-
-//            System.out.println("findMember.id = "+findMember1.getId());
-//            System.out.println("findMember.name = "+findMember1.getName());
+//            em.persist(member); -> 데이터를 수정하고 나면 다시 persist 해줘야하지 않을까?
+            //JPA -> 데이터베이스의 객체화가 목적
+            //자바에서는 객체의 값이 변경된다고 해서 뭔가 새롭게 값을 대입하는 구문을 넣을 이유가 없다.
+            //JPA도 동일
 
             tx.commit(); //커밋 시점에서 변경 상태를 확인
             //변경점이 발견되었을 시 UPDATE 쿼리문 생성
