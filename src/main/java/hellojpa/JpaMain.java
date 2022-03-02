@@ -18,13 +18,22 @@ public class JpaMain {
         //code 작성
         try{
             //영속
-            Member member = new Member(150L, "A");
-            member.setName("ZZZZZ");
+            Member member = em.find(Member.class, 150L);
+            member.setName("AAAAA");
 
-//            em.persist(member); -> 데이터를 수정하고 나면 다시 persist 해줘야하지 않을까?
-            //JPA -> 데이터베이스의 객체화가 목적
-            //자바에서는 객체의 값이 변경된다고 해서 뭔가 새롭게 값을 대입하는 구문을 넣을 이유가 없다.
-            //JPA도 동일
+            //준영속 : 객체를 영속성 컨텍스트에서 빼냄
+            em.detach(member);
+
+            //영속성 컨텍스트를 통째로 삭제
+            em.clear();
+
+            //영속성 컨텍스트를 초기화 후 같은 값을 조회한다면, 쿼리 문을 다시 작성하게 되고 새롭게 영속속
+            Member memer2 = em.find(Member.class, 150L);
+
+            //영속성 컨텍스트를 종료
+            em.close();
+
+            System.out.println("======================");
 
             tx.commit(); //커밋 시점에서 변경 상태를 확인
             //변경점이 발견되었을 시 UPDATE 쿼리문 생성
