@@ -17,23 +17,13 @@ public class JpaMain {
 
         //code 작성
         try{
-            //영속
-            Member member = em.find(Member.class, 150L);
-            member.setName("AAAAA");
 
-            //준영속 : 객체를 영속성 컨텍스트에서 빼냄
-            em.detach(member);
+            Member member = new Member();
+            member.setId(2L);
+            member.setUsername("B");
+            member.setRoleType(RoleType.ADMIN);
 
-            //영속성 컨텍스트를 통째로 삭제
-            em.clear();
-
-            //영속성 컨텍스트를 초기화 후 같은 값을 조회한다면, 쿼리 문을 다시 작성하게 되고 새롭게 영속속
-            Member memer2 = em.find(Member.class, 150L);
-
-            //영속성 컨텍스트를 종료
-            em.close();
-
-            System.out.println("======================");
+            em.persist(member);
 
             tx.commit(); //커밋 시점에서 변경 상태를 확인
             //변경점이 발견되었을 시 UPDATE 쿼리문 생성
