@@ -18,12 +18,35 @@ public class JpaMain {
         //code 작성
         try{
 
-            Member member = new Member();
-            member.setId(2L);
-            member.setUsername("B");
-            member.setRoleType(RoleType.ADMIN);
+            Member member1 = new Member();
+            member1.setUsername("A");
 
-            em.persist(member);
+            Member member2 = new Member();
+            member2.setUsername("B");
+
+            Member member3 = new Member();
+            member3.setUsername("C");
+
+            System.out.println("======================");
+
+//            Hibernate:
+//            call next value for member_seq -> 첫 호출은 SEQ = 1
+//            Hibernate:
+//            call next value for member_seq -> 두 번째 호출은 SEQ = 51
+
+            //DB_SEQ : 1 | 1
+            //DB_SEQ : 51 | 2
+            //DB_SEQ : 51 | 3
+            //50개 마다 sequence 호출 (미리 칸을 만들어둔다고 생각하면 편함)
+            em.persist(member1); //1, 51
+            em.persist(member2); //MEMORY
+            em.persist(member3); //MEMORY
+
+            System.out.println("member.id : "+member1.getId());
+            System.out.println("member.id : "+member2.getId());
+            System.out.println("member.id : "+member3.getId());
+
+            System.out.println("======================");
 
             tx.commit(); //커밋 시점에서 변경 상태를 확인
             //변경점이 발견되었을 시 UPDATE 쿼리문 생성
