@@ -42,7 +42,12 @@ public class Member {
         return team;
     }
 
-    public void setTeam(Team team) {
+    public void setTeam(Team team){
         this.team = team;
+    }
+
+    public void changeTeam(Team team) { //연관관계 메서드이므로 이름을 바꿔줌
+        this.team = team;
+        team.getMembers().add(this);
     }
 }
