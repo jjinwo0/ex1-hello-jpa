@@ -31,9 +31,11 @@ public class JpaMain {
             em.clear();
 
             Member findMember = em.find(Member.class, member.getId());
+            List<Member> members = findMember.getTeam().getMembers();
 
-            Team findTeam = findMember.getTeam();
-            System.out.println("findTeam : " + findTeam.getName());
+            for(Member m : members){
+                System.out.println("m = " + m.getUsername());
+            }
 
             tx.commit(); //커밋 시점에서 변경 상태를 확인
             //변경점이 발견되었을 시 UPDATE 쿼리문 생성
