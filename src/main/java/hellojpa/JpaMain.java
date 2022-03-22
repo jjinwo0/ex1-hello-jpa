@@ -19,13 +19,20 @@ public class JpaMain {
         //code 작성
         try{
 
-            Member member = new Member();
-            member.setUsername("user1");
-            member.setCreatedBy("Kim");
-            member.setCreatedDate(LocalDateTime.now());
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            em.persist(member1);
 
             em.flush();
             em.clear();
+
+            Member refMember = em.getReference(Member.class, member1.getId());
+            System.out.println("m1 = "+refMember.getClass());
+
+            Member findMember = em.find(Member.class, member1.getId());
+            System.out.println("reference = "+findMember.getClass());
+
+            System.out.println("refMember == findMember : "+(refMember == findMember));
 
             tx.commit();
         }catch (Exception e){
