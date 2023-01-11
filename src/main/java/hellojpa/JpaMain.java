@@ -51,14 +51,13 @@ public class JpaMain {
 //            System.out.println(member2.getTeam().getName());
 //            System.out.println("========================");
 
-            Child child1 = new Child();
-            Child child2 = new Child();
 
-            Parent parent = new Parent();
-            parent.addChild(child1);
-            parent.addChild(child2);
+            Member member = new Member();
+            member.setUsername("hello");
+            member.setHomeAddress("city", "street", "zipcode");
+            member.setWorkPeriod(new Period());
 
-            em.persist(parent);
+            em.persist(member);
             //child까지 persist하는 작업을 하지 않고 연관관계에 따라 persist: cascade활용
 //            em.persist(child1);
 //            em.persist(child2);
